@@ -1,0 +1,25 @@
+# Build artifacts
+TomatoNoteTimer/bin/
+TomatoNoteTimer/obj/
+
+# Local release artifact (keep locally, do not commit as source)
+TomatoNoteTimer.exe
+
+# Runtime generated files
+config/
+data/
+logs/
+audio/
+**/config/
+**/data/
+**/logs/
+**/audio/
+
+# IDE / user files
+.vs/
+*.user
+*.suo
+
+# Temp
+_publish_tmp/
+

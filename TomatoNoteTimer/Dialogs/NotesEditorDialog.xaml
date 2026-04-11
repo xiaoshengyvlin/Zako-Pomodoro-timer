@@ -1,0 +1,40 @@
+<Window x:Class="TomatoNoteTimer.Dialogs.NotesEditorDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="编辑便签段落"
+        Height="460"
+        Width="620"
+        WindowStartupLocation="CenterOwner">
+    <Grid Margin="14">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="每段便签用一行 “---” 分隔。"
+                   FontSize="13" />
+
+        <TextBox x:Name="NotesEditorTextBox"
+                 Grid.Row="1"
+                 Margin="0,10,0,10"
+                 AcceptsReturn="True"
+                 VerticalScrollBarVisibility="Auto"
+                 HorizontalScrollBarVisibility="Disabled"
+                 TextWrapping="Wrap"
+                 FontSize="14" />
+
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button Content="取消"
+                    Width="82"
+                    Margin="0,0,8,0"
+                    Click="Cancel_Click" />
+            <Button Content="保存"
+                    Width="82"
+                    IsDefault="True"
+                    Click="Save_Click" />
+        </StackPanel>
+    </Grid>
+</Window>
