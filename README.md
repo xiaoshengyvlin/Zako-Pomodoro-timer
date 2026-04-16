@@ -13,7 +13,7 @@ L站佬友链接：https://linux.do/
 
 ## 运行方式
 
-1. 直接运行根目录 `TomatoNoteTimer.exe`（已打包好放在[![Release](https://img.shields.io/badge/Release-下载-blue?style=for-the-badge)](https://github.com/xiaoshengyvlin/Zako-Pomodoro-timer/releases/tag/v1.0.0)）。
+1. 直接运行根目录 `TomatoNoteTimer.exe`（已打包好放在[![Release](https://img.shields.io/badge/Release-下载-blue?style=flat-square)](https://github.com/xiaoshengyvlin/Zako-Pomodoro-timer/releases/tag/v1.0.0)）。
 2. 首次运行会自动创建运行时目录：`config`、`data`、`logs`、`audio`。
 3. 内置预设音频会释放到 `audio\countdown_end\音乐预设.mp3`，不会写到根目录。
 
