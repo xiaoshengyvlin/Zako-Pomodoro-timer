@@ -13,7 +13,7 @@ L站佬友链接：https://linux.do/
 
 ## 运行方式
 
-1. 直接运行根目录 `TomatoNoteTimer.exe`（单文件发布版）。
+1. 直接运行根目录 `TomatoNoteTimer.exe`（已打包好放在Realese发布，请勿下载源码）。
 2. 首次运行会自动创建运行时目录：`config`、`data`、`logs`、`audio`。
 3. 内置预设音频会释放到 `audio\countdown_end\音乐预设.mp3`，不会写到根目录。
 
