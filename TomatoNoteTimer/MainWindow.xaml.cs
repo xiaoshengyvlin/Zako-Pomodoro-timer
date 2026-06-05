@@ -158,12 +158,13 @@ public partial class MainWindow : Window
 
         LoadWindowIcon();
         ApplyStateToUi();
-        RestoreWindowPosition();
         ConfigureNoteRotationTimer();
         InitializeTrayIcon();
 
         _state.App.AutoStart = IsAutoStartEnabled();
         _configService.AppendLog("应用启动");
+
+        try { RestoreWindowPosition(); } catch { }
     }
 
     private void InitializeWorkflowStateFromConfig()
@@ -411,17 +412,15 @@ public partial class MainWindow : Window
 
         if (left != 0 || top != 0)
         {
-            bool visible = System.Windows.Forms.Screen.AllScreens
-                .Any(screen =>
-                {
-                    var area = screen.WorkingArea;
-                    return left < area.Right - 50
-                        && left + w > area.X + 50
-                        && top < area.Bottom - 50
-                        && top + h > area.Y + 50;
-                });
+            double virtualLeft = SystemParameters.VirtualScreenLeft;
+            double virtualTop = SystemParameters.VirtualScreenTop;
+            double virtualRight = virtualLeft + SystemParameters.VirtualScreenWidth;
+            double virtualBottom = virtualTop + SystemParameters.VirtualScreenHeight;
 
-            if (visible)
+            if (left < virtualRight - 50
+                && left + w > virtualLeft + 50
+                && top < virtualBottom - 50
+                && top + h > virtualTop + 50)
             {
                 Left = left;
                 Top = top;
@@ -429,12 +428,16 @@ public partial class MainWindow : Window
             }
         }
 
-        var primary = System.Windows.Forms.Screen.PrimaryScreen?.WorkingArea;
-        if (primary != null && primary.Value.Width > 0)
+        var workArea = SystemParameters.WorkArea;
+        if (workArea.Width > 0 && workArea.Height > 0)
         {
-            Left = Math.Max(0, (primary.Value.Width - w) / 2 + primary.Value.X);
-            Top = Math.Max(0, primary.Value.Y + primary.Value.Height - h);
+            Left = Math.Max(0, workArea.Left + (workArea.Width - w) / 2);
+            Top = Math.Max(0, workArea.Bottom - h);
+            return;
         }
+
+        Left = 100;
+        Top = 100;
     }
 
     private void MainWindow_SourceInitialized(object? sender, EventArgs e)

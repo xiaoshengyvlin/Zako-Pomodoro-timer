@@ -10,7 +10,6 @@
         MinWidth="140"
         MinHeight="88"
         WindowStyle="None"
-        WindowStartupLocation="Manual"
         ResizeMode="CanResizeWithGrip"
         AllowsTransparency="True"
         Background="Transparent"
