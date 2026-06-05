@@ -89,6 +89,16 @@ public sealed class AppState
             App.WindowHeight = 210;
         }
 
+        if (App.WindowLeft < -10000 || App.WindowLeft > 100000 || double.IsNaN(App.WindowLeft))
+        {
+            App.WindowLeft = 0;
+        }
+
+        if (App.WindowTop < -10000 || App.WindowTop > 100000 || double.IsNaN(App.WindowTop))
+        {
+            App.WindowTop = 0;
+        }
+
         App.Hotkeys = App.Hotkeys ?? new HotkeySettings();
         App.Hotkeys.Normalize();
 
@@ -227,6 +237,8 @@ public sealed class AppSettings
     public string CountdownFontFamily { get; set; } = "KaiTi";
     public double CountdownFontSize { get; set; } = 30;
     public bool SimpleMode { get; set; }
+    public double WindowLeft { get; set; }
+    public double WindowTop { get; set; }
     public HotkeySettings Hotkeys { get; set; } = new();
 }
 

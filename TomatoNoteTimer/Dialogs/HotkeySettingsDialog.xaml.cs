@@ -209,7 +209,7 @@ public partial class HotkeySettingsDialog : Window
             Key.PageDown => "PageDown",
             Key.Insert => "Insert",
             Key.Delete => "Delete",
-            _ => key.ToString()
+            _ => string.Empty
         };
 
         return !string.IsNullOrWhiteSpace(keyName);

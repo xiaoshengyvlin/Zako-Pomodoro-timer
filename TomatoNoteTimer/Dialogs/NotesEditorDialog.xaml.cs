@@ -9,7 +9,7 @@ public partial class NotesEditorDialog : Window
     public NotesEditorDialog(IReadOnlyList<string> segments)
     {
         InitializeComponent();
-        NotesEditorTextBox.Text = string.Join($"{System.Environment.NewLine}---{System.Environment.NewLine}", segments);
+        NotesEditorTextBox.Text = string.Join($"\n---\n", segments);
     }
 
     public List<string> Segments { get; private set; } = new();
@@ -17,7 +17,8 @@ public partial class NotesEditorDialog : Window
     private void Save_Click(object sender, RoutedEventArgs e)
     {
         Segments = NotesEditorTextBox.Text
-            .Split("---")
+            .Replace("\r\n", "\n")
+            .Split("\n---\n")
             .Select(x => x.Trim())
             .Where(x => !string.IsNullOrWhiteSpace(x))
             .ToList();

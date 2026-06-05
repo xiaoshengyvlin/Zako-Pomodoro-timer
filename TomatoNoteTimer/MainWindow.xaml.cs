@@ -158,6 +158,7 @@ public partial class MainWindow : Window
 
         LoadWindowIcon();
         ApplyStateToUi();
+        RestoreWindowPosition();
         ConfigureNoteRotationTimer();
         InitializeTrayIcon();
 
@@ -399,6 +400,41 @@ public partial class MainWindow : Window
         UpdateCountdownText();
         UpdateNotesText();
         Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new Action(TrimMemoryUsage));
+    }
+
+    private void RestoreWindowPosition()
+    {
+        double w = Width;
+        double h = Height;
+        double left = _state.App.WindowLeft;
+        double top = _state.App.WindowTop;
+
+        if (left != 0 || top != 0)
+        {
+            bool visible = System.Windows.Forms.Screen.AllScreens
+                .Any(screen =>
+                {
+                    var area = screen.WorkingArea;
+                    return left < area.Right - 50
+                        && left + w > area.X + 50
+                        && top < area.Bottom - 50
+                        && top + h > area.Y + 50;
+                });
+
+            if (visible)
+            {
+                Left = left;
+                Top = top;
+                return;
+            }
+        }
+
+        var primary = System.Windows.Forms.Screen.PrimaryScreen?.WorkingArea;
+        if (primary != null && primary.Value.Width > 0)
+        {
+            Left = Math.Max(0, (primary.Value.Width - w) / 2 + primary.Value.X);
+            Top = Math.Max(0, primary.Value.Y + primary.Value.Height - h);
+        }
     }
 
     private void MainWindow_SourceInitialized(object? sender, EventArgs e)
@@ -2725,6 +2761,12 @@ public partial class MainWindow : Window
         _state.App.TopMost = Topmost;
         _state.App.WindowWidth = (int)Width;
         _state.App.WindowHeight = (int)Height;
+
+        if (Left > -10000 && Top > -10000)
+        {
+            _state.App.WindowLeft = Left;
+            _state.App.WindowTop = Top;
+        }
     }
 
     private static string GetCurrentExePath()

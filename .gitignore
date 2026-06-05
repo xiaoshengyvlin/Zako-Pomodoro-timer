@@ -23,3 +23,6 @@ audio/
 # Temp
 _publish_tmp/
 
+# Original download (do not commit)
+Zako-Pomodoro-timer-main/
+
